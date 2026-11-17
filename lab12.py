@@ -107,3 +107,84 @@ streamers = load_from_file("data.txt")
 
 for s in streamers:
     print_streamer(s)
+    #Задание 8
+print("\n--- Задание 8 ---")
+class Player:
+    def __init__(self, name, points=0, level=1):
+        self.name = name
+        self.points = points
+        self.level = level
+
+    def to_line(self):
+        return f"{self.name};{self.points};{self.level}"
+
+def player_from_line(line):
+    name, points, level = line.strip().split(";")
+    return Player(name, int(points), int(level))
+
+def save_player(player, filename="player.txt"):
+    with open(filename, "w", encoding="utf-8") as f:
+        f.write(player.to_line())
+
+def load_player(filename="player.txt"):
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            return player_from_line(f.read())
+    except FileNotFoundError:
+        return Player(input("Введи имя игрока: "))
+
+# Раскомментируй код ниже, если хочешь запустить игру при проверке
+# player = load_player()
+# print(f"С возвращением, {player.name}! Очки: {player.points}")
+# while True:
+#     answer = input("Играем ещё раунд? (да/нет): ")
+#     if answer == "нет":
+#         print("Пока!")
+#         break
+#     player.points += 10
+#     player.level = player.points // 50 + 1
+#     save_player(player)
+#     print(f"Очки сохранены: {player.points}, уровень: {player.level}")
+
+
+#Задание 9
+print("\n--- Задание 9 ---")
+def task9():
+    filename = input("Введи имя файла для чтения: ")
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            print(f.read())
+    except FileNotFoundError:
+        print("Ошибка: Файл не найден.")
+    except PermissionError:
+        print("Ошибка: Нет прав на чтение файла.")
+    except UnicodeDecodeError:
+        print("Ошибка: Неверная кодировка файла (не UTF-8).")
+
+# task9() # Раскомментируй для проверки
+
+
+#Задание 10
+print("\n--- Задание 10 ---")
+# Формат: поля разделены "|", донаты — через запятую.
+def save_custom(objects, filename):
+    with open(filename, "w", encoding="utf-8") as f:
+        for obj in objects:
+            f.write(obj.to_line().replace(";", "|") + "\n")
+
+def load_custom(filename):
+    objects = []
+    try:
+        with open(filename, "r", encoding="utf-8") as f:
+            for line in f:
+                objects.append(streamer_from_line(line.replace("|", ";")))
+    except FileNotFoundError:
+        print("Файл не найден.")
+    except ValueError:
+        print("Ошибка формата данных.")
+    return objects
+
+# Тестируем свой формат
+save_custom(streamers, "custom_data.txt")
+loaded_custom = load_custom("custom_data.txt")
+print(f"Загружено из своего формата: {len(loaded_custom)} объектов")
