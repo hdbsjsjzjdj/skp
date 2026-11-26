@@ -9,3 +9,9 @@ numpy
 ## Как запустить
 pip install -r requirements.txt
 python main.py
+
+#лаба 19 добавление
+numpy
+pandas
+matplotlib
+scikit-learn

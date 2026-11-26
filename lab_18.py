@@ -49,7 +49,7 @@ print(final.head(10))
 #Задание 7
 df["has_exclamation"] = df["text"].str.contains("!").astype(int)
 print(df[["text", "has_exclamation"]])
-#Задание 8
+#Задание
 import matplotlib.pyplot as plt
 import os
 os.makedirs("images", exist_ok=True)
